@@ -1,0 +1,23 @@
+---
+# tasks file for minimize-writes
+# http://www.zdnet.com/article/raspberry-pi-extending-the-life-of-the-sd-card
+
+- name: Mount /tmp to tmpfs
+  mount:
+    path: "{{ item.path }}"
+    src: tmpfs
+    fstype: tmpfs
+    opts: defaults,noatime,nosuid,size={{ item.size }}
+    dump: "0"
+    state: mounted
+  loop:
+    - { "path": "/tmp", "size": "100m" }
+    - { "path": "/var/tmp", "size": "30m" }
+    - { "path": "/var/log", "size": "100m" }
+  register: mounted
+  become: True
+
+- name: Reboot if changed
+  include_role:
+    name: GROG.reboot
+  when: mounted.changed

@@ -1,0 +1,15 @@
+---
+# defaults file for create-service-account
+
+# unique user ID
+uid: 800
+# unique group ID, default same as uid
+gid: "{{ uid }}"
+# user name
+service_user: openhab
+# should the service account have a home folder?
+create_home: no
+# service name
+service: "{{ service_user }}"
+# Will be added to the services group
+system_user: link

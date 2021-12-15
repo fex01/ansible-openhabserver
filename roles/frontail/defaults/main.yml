@@ -1,0 +1,9 @@
+---
+# defaults file for frontail
+
+# which frontail version should be pulled from Docker?
+frontail_version: latest
+# Docker container hostname
+frontail_hostname: frontail
+# Where is the openHAB home folder located?
+frontail_openhab_home: /opt/docker/openhab

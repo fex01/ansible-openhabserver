@@ -1,0 +1,29 @@
+---
+# tasks file for create-service-account
+
+- name: "Create {{ service_user }} group so we can control the gid"
+  group:
+    gid: "{{ gid }}"
+    name: "{{ service_user }}"
+    state: present
+    system: True
+  become: True
+
+- name: "Create {{ service_user }} user"
+  user:
+    comment: "{{ service }} service"
+    createhome: "{{ create_home }}"
+    group: "{{ service_user }}"
+    name: "{{ service_user }}"
+    shell: /usr/sbin/nologin
+    state: present
+    system: True
+    uid: "{{ uid }}"
+  become: True
+
+- name: "Add {{ system_user }} to the {{ service_user }} group"
+  user:
+    append: True
+    groups: "{{ service_user }}"
+    name: "{{ system_user }}"
+  become: True
