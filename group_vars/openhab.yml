@@ -1,0 +1,117 @@
+---
+# group_vars file for openhab
+
+ansible_host: "xxx.xxx.xxx.xxx"
+ansible_port: "{{ ssh_port }}"
+
+############################################################
+########################Bootstrapping#######################
+############################################################
+
+# main part of the config is in group_vars/raspbian
+
+# system user name
+user_name: "link"
+# password for system user
+# create: 
+#   * create hash: ansible all -i localhost, -m debug -a "msg={{ 'my_secret_password' | password_hash('sha512') }}"
+#   * encrypt hash: ansible-vault encrypt_string --vault-id openhab@prompt --stdin-name 'user_password_hash'
+# use in play: ansible-playbook <playbook>.yml --vault-id openhab@prompt
+# default: my_secret_password
+user_password_hash:
+# SSH
+# grant SSH access only for
+ssh_users: 
+  - "{{ user_name }}"
+# Sets the ssh port
+ssh_port: 22
+
+# private key to clone from gitserver will be deploy by w.users to /home/{{ user_name }}/.ssh/id_rsa
+#   * create private / public key pair: `ssh-keygen -o -C "link@openhab"`
+#   * copy public key to git server /home/git/.ssh/authorized_keys
+#   * copy the private key file to ansible machine `scp -C -P 22 link@openhab:/home/link/.ssh/id_rsa ./id_rsa.original`
+#   * encrypt content with `cat id_rsa.original | ansible-vault encrypt_string --vault-id openhab@prompt --stdin-name 'ssh_private_key'`
+ssh_private_key:
+
+
+############################################################
+############################ufw#############################
+############################################################
+# additional firewall rules - careful, overwrites existing rules
+openhab_ufw_rules:
+  - { rule: "allow", port: "{{ ssh_port }}", proto: "tcp", comment: 'SSH' }
+  - { rule: "allow", port: "8080", proto: "tcp", comment: 'openHAB HTTP' }
+  - { rule: "allow", port: "8443", proto: "tcp", comment: 'openHAB HTTPS' }
+  - { rule: "allow", port: "5007", proto: "tcp", comment: 'openHAB LSP' }
+  - { rule: "allow", port: "9125", proto: "tcp", comment: 'openHAB Homematic XML-RPC' }
+  - { rule: "allow", port: "9126", proto: "tcp", comment: 'openHAB Homematic BIN-RPC' }
+  - { rule: "allow", port: "9001", proto: "tcp", comment: 'frontail' }
+  - { rule: "allow", port: "9124", proto: "tcp", comment: 'homekit' }
+  - { rule: "allow", port: "445", proto: "tcp", comment: 'SMB' }
+  - { rule: "allow", port: "445", proto: "udp", comment: 'SMB' }
+
+############################################################
+############################git#############################
+############################################################
+
+# username for git commits
+git_commit_user_name: link
+# user email for git commits
+git_commit_user_email: link@example.org
+
+
+############################################################
+###########################docker###########################
+############################################################
+apt_packages:
+  - python3-setuptools
+  - python3-dev
+pip_package: python3-pip
+docker_pip_executable: pip3
+docker_users:
+  - "{{ user_name }}"
+
+
+############################################################
+##########################openhab###########################
+############################################################
+openhab_version: latest
+openhab_hostname: openhab
+openhab_home: /opt/docker
+openhab_repo:
+  - accept_hostkey: yes
+    dest: "{{ openhab_home }}/openhab"
+    key_file: "/home/{{ user_name }}/.ssh/id_rsa"
+    repo:
+
+
+############################################################
+#########################frontail###########################
+############################################################
+frontail_version: latest
+frontail_hostname: frontail 
+frontail_openhab_home: "{{ openhab_home }}/openhab"
+
+
+############################################################
+###########################samba############################
+############################################################
+# max. SMB2 for macOS compatibility
+samba_server_min_protocol: SMB2
+samba_apple_extensions: yes
+# no for for macOS compatibility
+samba_mitigate_cve_2017_7494: no
+samba_server_string: "Welcome to the {{ host_name }} file share"
+samba_users:
+  - name: openhab
+    password: openhab
+samba_shares:
+  - name: openhab
+    comment: "file access to docker root directory"
+    valid_users: openhab
+    write_list: openhab
+    group: openhab
+    browseable: 'yes'
+    path: "{{ openhab_home }}"
+    owner: openhab
+    group: openhab
