@@ -1,0 +1,26 @@
+[submodule "roles/openhab"]
+	path = roles/openhab
+	url = https://github.com/fex01/ansible-openhab.git
+	branch = main
+[submodule "roles/prepare-raspberry"]
+	path = roles/prepare-raspberry
+	url = https://github.com/fex01/ansible-prepare-raspberry.git
+	branch = main
+[submodule "roles/weareinteractive.git"]
+	path = roles/weareinteractive.git
+	url = https://github.com/weareinteractive/ansible-git.git
+[submodule "roles/weareinteractive.apt"]
+	path = roles/weareinteractive.apt
+	url = https://github.com/weareinteractive/ansible-apt.git
+[submodule "roles/weareinteractive.ufw"]
+	path = roles/weareinteractive.ufw
+	url = https://github.com/weareinteractive/ansible-ufw.git
+[submodule "roles/weareinteractive.users"]
+	path = roles/weareinteractive.users
+	url = https://github.com/weareinteractive/ansible-users.git
+[submodule "roles/arillso.localization"]
+	path = roles/arillso.localization
+	url = https://github.com/arillso/ansible.localization.git
+[submodule "roles/bertvv.samba"]
+	path = roles/bertvv.samba
+	url = https://github.com/bertvv/ansible-role-samba
