@@ -1,7 +1,7 @@
 # file: hosts
 
-[openhab_server]
-openhab
+[openhab]
+openhab.local
 
 [raspbian]
-openhab
+openhab.local

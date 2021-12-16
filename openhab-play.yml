@@ -1,7 +1,7 @@
 # invoke with `ansible-playbook openhab-play.yml -i ./hosts --vault-id openhab@prompt`
 
 - name: playbook to set up an openHAB server on a Raspberry Pi
-  hosts: openhab
+  hosts: openhab.local
   gather_facts: false
   debugger: on_failed
   become: true

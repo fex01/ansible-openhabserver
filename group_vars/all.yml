@@ -2,7 +2,7 @@
 # group_vars file for all
 
 # default system user
-ansible_user: link
+ansible_user: "{{ user_name }}"
 
 ############################################################
 ########################Bootstrapping#######################
