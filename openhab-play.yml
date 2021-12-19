@@ -1,16 +1,16 @@
 # invoke with `ansible-playbook openhab-play.yml -i ./hosts --vault-id openhab@prompt`
 
 - name: playbook to set up an openHAB server on a Raspberry Pi
-  hosts: openhab.local
+  hosts: openhab
   gather_facts: false
   debugger: on_failed
   become: true
 
   tasks:
     - include_role: 
-        name: prepare-raspberry
+        name: roles/prepare-raspberry
     - include_role:
-        name: "weareinteractive.git"
+        name: roles/weareinteractive.git
         vars:
         git_config:
             user:
@@ -23,21 +23,21 @@
             status:
             submodulesummary: 1
     - include_role: 
-        name: geerlingguy.pip
+        name: roles/geerlingguy.pip
     - include_role: 
-        name: geerlingguy.docker_arm
-    - name: reboot host
+        name: roles/geerlingguy.docker_arm
+    - name: roles/reboot host
       reboot:
     - include_role: 
-        name: openhab
+        name: roles/openhab
       vars:
         system_user: "{{ user_name }}"
     - include_role:
-        name: "frontail"
+        name: roles/frontail
     - include_role:
-        name: "minimize-writes"
+        name: roles/minimize-writes
     - include_role:
-        name: "bertvv.samba"
+        name: roles/bertvv.samba
     - name: SSH into openHAB folder
       blockinfile:
         path: /home/{{ user_name }}/.bashrc
