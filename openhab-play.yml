@@ -20,7 +20,7 @@
         name: roles/geerlingguy.pip
     - include_role: 
         name: roles/geerlingguy.docker_arm
-    - name: roles/reboot host
+    - name: reboot host
       reboot:
     - include_role: 
         name: roles/openhab
