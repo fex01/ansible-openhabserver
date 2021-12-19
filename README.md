@@ -13,6 +13,7 @@ Complete Ansible project to set up an openHAB server on a Raspberry Pi
     * [Prepare your Raspberry Pi](#prepare-your-raspberry-pi)
     * [Prepare Work Environment](#prepare-work-environment)
 * [group_vars](#group-vars)
+    * [all](#all)
     * [raspbian](#raspbian)
     * [openhab-server](#openhab)
 * [TODO](#todo)

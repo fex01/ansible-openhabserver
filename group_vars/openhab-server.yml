@@ -18,7 +18,7 @@ user_name: "link"
 #   * encrypt hash: ansible-vault encrypt_string --vault-id openhab@prompt --stdin-name 'user_password_hash'
 # use in play: ansible-playbook <playbook>.yml --vault-id openhab@prompt
 # default: my_secret_password
-user_password_hash:
+user_password_hash: "$6$Ykev37VS2o/4N3XG$C1ezpxzSv95yBDtB6x9kL3pjcRpu28sufphMVsvUPYkbAr1Hnw..0vUsnk.lb5Z7cGVVgQhtDw/NfR4H1RKTX1"
 # SSH
 # grant SSH access only for
 ssh_users: 
@@ -78,11 +78,17 @@ docker_users:
 openhab_version: latest
 openhab_hostname: openhab
 openhab_home: /opt/docker
-openhab_repo:
-  - accept_hostkey: yes
-    dest: "{{ openhab_home }}/openhab"
-    key_file: "/home/{{ user_name }}/.ssh/id_rsa"
-    repo:
+# optional - use if you already have a versioned openHAB config in a git repo
+# To make this work configure your git server for key based SSH authentication &
+# see *ssh_private_key* comment for further guidance.
+# Example:
+# openhab_repo:
+#   - accept_hostkey: yes
+#     dest: "{{ openhab_home }}/openhab"
+#     key_file: "/home/{{ user_name }}/.ssh/id_rsa"
+#     repo: ssh://user@my.server:/path/to/repo/openhab.git
+#     version: "branch"
+openhab_repo: []
 
 
 ############################################################
