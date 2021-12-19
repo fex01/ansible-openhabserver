@@ -24,3 +24,9 @@
 [submodule "roles/bertvv.samba"]
 	path = roles/bertvv.samba
 	url = https://github.com/bertvv/ansible-role-samba
+[submodule "roles/geerlingguy.docker_arm"]
+	path = roles/geerlingguy.docker_arm
+	url = https://github.com/geerlingguy/ansible-role-docker_arm.git
+[submodule "roles/geerlingguy.pip"]
+	path = roles/geerlingguy.pip
+	url = https://github.com/geerlingguy/ansible-role-pip.git
