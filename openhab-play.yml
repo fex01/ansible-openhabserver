@@ -11,7 +11,7 @@
         name: roles/prepare-raspberry
     - include_role:
         name: roles/weareinteractive.git
-        vars:
+      vars:
         git_config:
             user:
             name: "{{ git_commit_user_name }}"
