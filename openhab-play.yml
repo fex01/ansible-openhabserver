@@ -14,14 +14,8 @@
       vars:
         git_config:
             user:
-            name: "{{ git_commit_user_name }}"
-            email: "{{ git_commit_user_email }}"
-            submodule:
-            recurse: true
-            push:
-            recursesubmodules: on-demand
-            status:
-            submodulesummary: 1
+              name: "{{ git_commit_user_name }}"
+              email: "{{ git_commit_user_email }}"
     - include_role: 
         name: roles/geerlingguy.pip
     - include_role: 
