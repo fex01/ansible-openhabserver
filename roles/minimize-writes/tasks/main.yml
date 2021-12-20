@@ -17,7 +17,6 @@
   register: mounted
   become: True
 
-- name: Reboot if changed
-  include_role:
-    name: GROG.reboot
+- name: reboot host
+  reboot:
   when: mounted.changed
