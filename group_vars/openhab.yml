@@ -82,13 +82,14 @@ openhab_home: /opt/docker
 # To make this work configure your git server for key based SSH authentication &
 # see *ssh_private_key* comment for further guidance.
 # Example:
-# openhab_repo:
+# openhab_repo: ssh://user@my.server:/path/to/repo/openhab.git
 #   - accept_hostkey: yes
 #     dest: "{{ openhab_home }}/openhab"
 #     key_file: "/home/{{ user_name }}/.ssh/id_rsa"
 #     repo: ssh://user@my.server:/path/to/repo/openhab.git
 #     version: "branch"
-openhab_repo: []
+openhab_repo:
+openhab_repo_branch: main
 
 
 ############################################################

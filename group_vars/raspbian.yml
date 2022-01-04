@@ -5,6 +5,9 @@
 ########################Bootstrapping#######################
 ############################################################
 
+# Public SSH key your Ansible machine is using
+bootstrap_ssh_key: "{{ ssh_public_keys | first }}"
+
 # The system timezone
 localization_timezone: "Europe/Berlin"
 
