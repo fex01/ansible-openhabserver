@@ -326,4 +326,4 @@ samba_shares:
     path: "{{ openhab_home }}"
     owner: openhab
     group: openhab
-```
+``` 
